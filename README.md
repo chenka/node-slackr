@@ -47,7 +47,7 @@ Send multiple channels:
 ```
 messages = {
     text: "Message",
-    channel: ["#channel1","#channel2","@channel3]
+    channel: ["#channel1","#channel2","#channel3]
 }
     
 slack.notify(messages);
