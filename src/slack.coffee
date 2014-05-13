@@ -1,5 +1,5 @@
 request = require 'request'
-_ = require 'lodash' 
+_ = require 'lodash'
 
 class Slack
   constructor: (@team, @token) ->
