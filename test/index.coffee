@@ -1,0 +1,168 @@
+should = require 'should'
+Slack = require '../lib/slack'
+nock = require 'nock'
+
+describe 'Initialize', ->
+
+  it 'Should requires team name', ->
+    try
+      slack = new Slack()
+    catch e
+      e.message.should.eql 'Team name required'
+    
+  it 'Should requires token', ->
+    try
+      slack = new Slack('teamname')
+    catch e
+      e.message.should.eql 'Token required'
+
+  it 'Should not raise error with valid arguments', ->
+    try
+      slack = new Slack('teamname', 'token')
+    catch e
+      e.message.should.be.empty
+
+describe 'Send message', ->
+  describe 'String arguments', ->
+    slack = new Slack('foo', 'bartoken')
+
+    it 'Should requires message', ->
+      try
+        slack.send()
+      catch e
+        e.message.should.eql 'Message required'
+
+    it 'Should sends notification to #genral channel, when channel is not specified', (done) ->
+      expectBody = 
+        text:"Message"
+        channel:"#general"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      .reply(200, 'ok')
+
+      slack.send "Message", (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+  describe 'Object arguments', ->
+    slack = new Slack('foo', 'bartoken')
+    # slack = new Slack('chenka', '5umMTSGtf7gkxlUxRGh32OvY')
+
+    it 'Should sends notification to channel', (done) ->
+      messages =
+        text: "Message"
+
+      expectBody = 
+        text: messages.text
+        channel:"#general"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should sends notification to specified channel', (done) ->
+      messages =
+        text: 'Message'
+        channel: '#channel'
+
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should sends notification to multiple channel', (done) ->
+      messages =
+        text: "Message multiple"
+        channel: ["#channel1","#channel2"]
+
+      expectBody = 
+        text: messages.text
+        channel: "#channel1"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      .reply(200, 'ok')
+
+      expectBody2 = 
+        text: messages.text
+        channel: "#channel2"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody2)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should sends notification when icon_emoji is set', (done) ->
+      messages =
+        text: "Message"
+        channel: "channel"
+        icon_emoji: "foobar"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should sends notification when icon_url is set', (done) ->
+      messages =
+        text: "Message"
+        channel: "channel"
+        icon_url: "foobar"
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should sends notification when attachments is set', (done) ->
+      messages =
+        text: "Message"
+        channel: "#random"
+        attachments: [
+          {
+            fallback: "Required text summary"
+            text: 'Optional text'
+            pretetxt: 'optional pretext'
+            color: 'warning'
+            fields:[
+              {
+                title: 'title1'
+                value: 'value1'
+                short: 'short'
+              }
+            ]
+          }
+        ]
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      .reply(200, 'ok')
+
+      slack.send messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+
+
+
+
+
+
+
