@@ -51,7 +51,6 @@ messages = {
 }
     
 slack.notify(messages);
-
 ```
 
 
@@ -85,5 +84,13 @@ slack.notify(messages, function(err, result) {
 });
 
 ```
+
+###Documentation
+
+For more information such as send URL link, Message Formatting, @mention and Parsing modes,  please follow the link below
+
+[Formatting](https://api.slack.com/docs/formatting)
+
+[Incomg Webook](https://my.slack.com/services/new/incoming-webhook)
 
 
