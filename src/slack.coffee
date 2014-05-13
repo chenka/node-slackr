@@ -10,7 +10,7 @@ class Slack
     return throw new Error "Team name required" unless @team?
     return throw new Error "Token required" unless @token?
 
-  send: (message, callback)->
+  notify: (message, callback)->
 
     if !message? or (_.isObject message and !message?.text?)
       return throw new Error 'Message required' 

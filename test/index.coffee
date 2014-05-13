@@ -28,7 +28,7 @@ describe 'Send message', ->
 
     it 'Should requires message', ->
       try
-        slack.send()
+        slack.notify()
       catch e
         e.message.should.eql 'Message required'
 
@@ -40,7 +40,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
       .reply(200, 'ok')
 
-      slack.send "Message", (err, result) ->
+      slack.notify "Message", (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -60,7 +60,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -74,7 +74,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -98,7 +98,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody2)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -112,7 +112,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -126,7 +126,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
@@ -154,7 +154,7 @@ describe 'Send message', ->
       nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
       .reply(200, 'ok')
 
-      slack.send messages, (err, result) ->
+      slack.notify messages, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()
