@@ -1,3 +1,5 @@
+![travis-ci](https://travis-ci.org/chenka/node-slackr.svg)
+
 Summary
 =======
 A simple node.js library for send notifications to [Slack](https://slack.com/) via Incoming WebHooks.
@@ -47,7 +49,7 @@ Send multiple channels:
 ```
 messages = {
     text: "Message",
-    channel: ["#channel1","#channel2","#channel3]
+    channel: ["#channel1","#channel2","@channel3]
 }
     
 slack.notify(messages);
