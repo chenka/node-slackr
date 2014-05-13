@@ -1,0 +1,15 @@
+{
+  "name": "node-slackr",
+  "version": "0.0.0",
+  "description": "A node.js module for sending / receiving messages in Slack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": "",
+  "keywords": [
+    "slack"
+  ],
+  "author": "Sarunyhot Suvannachoti <teamyakusa@gmail.com>",
+  "license": "BSD"
+}
