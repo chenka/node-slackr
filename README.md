@@ -20,6 +20,14 @@ slack = new Slack('team','token');
 ```
 
 Initialize with options:
+```js
+slack = new Slack('team','token',{
+  channel: "#development",
+  username: "slack-bot",
+  icon_url: "http://domain.com/image.png",
+  icon_emoji: ":ghost:"  
+});
+```
 
 ###Send message:
 
