@@ -7,7 +7,7 @@
     "test": "mocha test",
     "prepublish": "./node_modules/.bin/coffee --compile --output lib src/*.coffee"
   },
-  "repository": "",
+  "repository": "https://github.com/chenka/node-slackr",
   "keywords": [
     "slack"
   ],

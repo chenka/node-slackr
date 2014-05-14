@@ -1,6 +1,7 @@
 should = require 'should'
 Slack = require '../lib/slack'
 nock = require 'nock'
+_ = require 'lodash'
 
 describe 'Initialize', ->
 
@@ -45,9 +46,33 @@ describe 'Send message', ->
         result.should.eql 'ok'
         done()
 
+    it 'Should send with defaults options', (done) ->
+      options = 
+        channel: "#development",
+        username: "mybot",
+        icon_url: "http://mydomain.com/myimage.png",
+        icon_emoji: ":shipit:"
+      
+      _slack = new Slack('foo', 'bartoken', options)
+
+      expectBody = _.clone options
+      expectBody.text = "Message"
+
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      .reply(200, 'ok')
+
+      _slack.notify expectBody.text, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+
+
+
+
   describe 'Object arguments', ->
     slack = new Slack('foo', 'bartoken')
-    # slack = new Slack('chenka', '5umMTSGtf7gkxlUxRGh32OvY')
 
     it 'Should sends notification to channel', (done) ->
       messages =
@@ -61,6 +86,31 @@ describe 'Send message', ->
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
+        should(err).empty
+        result.should.eql 'ok'
+        done()
+
+    it 'Should send with defaults options', (done) ->
+      options = 
+        channel: "#development",
+        username: "mybot",
+        icon_url: "http://mydomain.com/myimage.png",
+        icon_emoji: ":shipit:"
+      
+      message = 
+        text: "Message"
+        channel: "specified"
+
+      _slack = new Slack('foo', 'bartoken', options)
+
+      expectBody = _.clone options
+      expectBody = _.merge expectBody, message
+
+
+      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      .reply(200, 'ok')
+
+      _slack.notify message, (err, result) ->
         should(err).empty
         result.should.eql 'ok'
         done()

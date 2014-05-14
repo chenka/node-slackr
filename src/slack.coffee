@@ -2,7 +2,7 @@ request = require 'request'
 _ = require 'lodash'
 
 class Slack
-  constructor: (@team, @token) ->
+  constructor: (@team, @token, @options) ->
     @incomingUrl = "https://#{team}.slack.com/services/hooks/incoming-webhook?token=#{token}"
     @validateArguments()
 
@@ -18,6 +18,7 @@ class Slack
     options = {}
     options.text = if typeof message is 'string' then message else message.text
     options.channel = unless message.channel? then '#general' else message.channel
+    options = _.extend options, @options
     options = _.extend options, message
 
 

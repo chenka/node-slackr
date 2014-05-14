@@ -14,15 +14,17 @@ npm install node-slackr
 
 Initialize client:
 
-```
+```js
 Slack = require('node-slackr');
 slack = new Slack('team','token');
 ```
 
+Initialize with options:
+
 ###Send message:
 
 If channel is not set default channel is *#general*
-```
+```js
 slack.notify("Message"); //without callback
 slack.notify("Message", function(err, result){
     console.log(err,result);
@@ -34,7 +36,7 @@ slack.notify("Message", function(err, result){
 
 You can customize the name and icon of your Incoming Webhook.
 
-```
+```js
 messages = {
     text: "Message",
     channel: "#random",
@@ -46,10 +48,10 @@ slack.notify(messages);
 ```
 
 Send multiple channels:
-```
+```js
 messages = {
     text: "Message",
-    channel: ["#channel1","#channel2","#channel3]
+    channel: ["#channel1","#channel2","#channel3"]
 }
     
 slack.notify(messages);
@@ -59,22 +61,24 @@ slack.notify(messages);
 ###Message Attachments:
 To display a richly-formatted message attachment in Slack, you can use the same JSON payload as above, but add in an attachments array. Each element of this array is a hash containing the following parameters:
 
-```
+```js
 messages = {
-  text: "Message",
-  channel: "#random",
+  text: "Server Down",
+  channel: "#alert"
   attachments: [
     {
-      fallback: "Required text summary of the attachment that is shown by clients that understand attachments but choose not to show them.",
-      "text": "Optional text that should appear within the attachment",
-      "pretext": "Optional text that should appear above the formatted data",
-      "color": "#36a64f", // Can either be one of 'good', 'warning', 'danger', or any hex color code
-      //fields is optional
+      fallback: "Detected server down",
+      color: "#36a64f", // Can either be one of 'good', 'warning', 'danger'
       fields: [
         {
-          title: "Required Field Title",
-         value: "Text value of the field. May contain standard message markup and must be escaped as normal. May be multi-line.",
-          short: false // Optional flag indicating whether the `value` is short enough to be displayed side-by-side with other values
+          title: "Uptime",
+          value: "30 Hours",
+          short: false 
+        },
+        {
+          title: "Downtime",
+          value: "20 Minutes",
+          short: false 
         }
       ]
     }
