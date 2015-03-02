@@ -5,27 +5,21 @@ _ = require 'lodash'
 
 describe 'Initialize', ->
 
-  it 'Should requires team name', ->
+  it 'Should requires incomingUrl', ->
     try
       slack = new Slack()
     catch e
-      e.message.should.eql 'Team name required'
+      e.message.should.eql 'Incoming url required'
     
-  it 'Should requires token', ->
-    try
-      slack = new Slack('teamname')
-    catch e
-      e.message.should.eql 'Token required'
-
   it 'Should not raise error with valid arguments', ->
     try
-      slack = new Slack('teamname', 'token')
+      slack = new Slack('https://incomingUrl/')
     catch e
       e.message.should.be.empty
 
 describe 'Send message', ->
   describe 'String arguments', ->
-    slack = new Slack('foo', 'bartoken')
+    slack = new Slack('https://incomingUrl/')
 
     it 'Should requires message', ->
       try
@@ -33,12 +27,12 @@ describe 'Send message', ->
       catch e
         e.message.should.eql 'Message required'
 
-    it 'Should sends notification to #genral channel, when channel is not specified', (done) ->
+    it 'Should sends notification to #general channel, when channel is not specified', (done) ->
       expectBody = 
         text:"Message"
         channel:"#general"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      nock('https://incomingUrl').post("/", expectBody)
       .reply(200, 'ok')
 
       slack.notify "Message", (err, result) ->
@@ -53,13 +47,13 @@ describe 'Send message', ->
         icon_url: "http://mydomain.com/myimage.png",
         icon_emoji: ":shipit:"
       
-      _slack = new Slack('foo', 'bartoken', options)
+      _slack = new Slack('https://incomingUrl/', options)
 
       expectBody = _.clone options
       expectBody.text = "Message"
 
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      nock('https://incomingUrl').post('/', expectBody)
       .reply(200, 'ok')
 
       _slack.notify expectBody.text, (err, result) ->
@@ -72,7 +66,7 @@ describe 'Send message', ->
 
 
   describe 'Object arguments', ->
-    slack = new Slack('foo', 'bartoken')
+    slack = new Slack('https://incomingUrl/')
 
     it 'Should sends notification to channel', (done) ->
       messages =
@@ -82,7 +76,7 @@ describe 'Send message', ->
         text: messages.text
         channel:"#general"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      nock('https://incomingUrl').post('/', expectBody)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
@@ -101,13 +95,13 @@ describe 'Send message', ->
         text: "Message"
         channel: "specified"
 
-      _slack = new Slack('foo', 'bartoken', options)
+      _slack = new Slack('https://incomingUrl/', options)
 
       expectBody = _.clone options
       expectBody = _.merge expectBody, message
 
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      nock('https://incomingUrl').post('/', expectBody)
       .reply(200, 'ok')
 
       _slack.notify message, (err, result) ->
@@ -121,7 +115,7 @@ describe 'Send message', ->
         channel: '#channel'
 
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      nock('https://incomingUrl').post('/', messages)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
@@ -138,14 +132,14 @@ describe 'Send message', ->
         text: messages.text
         channel: "#channel1"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody)
+      nock('https://incomingUrl').post('/', expectBody)
       .reply(200, 'ok')
 
       expectBody2 = 
         text: messages.text
         channel: "#channel2"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", expectBody2)
+      nock('https://incomingUrl').post('/', expectBody2)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
@@ -159,7 +153,7 @@ describe 'Send message', ->
         channel: "channel"
         icon_emoji: "foobar"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      nock('https://incomingUrl').post('/', messages)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
@@ -173,7 +167,7 @@ describe 'Send message', ->
         channel: "channel"
         icon_url: "foobar"
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      nock('https://incomingUrl').post('/', messages)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->
@@ -201,7 +195,7 @@ describe 'Send message', ->
           }
         ]
 
-      nock('https://foo.slack.com').post("/services/hooks/incoming-webhook?token=bartoken", messages)
+      nock('https://incomingUrl').post('/', messages)
       .reply(200, 'ok')
 
       slack.notify messages, (err, result) ->

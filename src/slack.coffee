@@ -2,13 +2,11 @@ request = require 'request'
 _ = require 'lodash'
 
 class Slack
-  constructor: (@team, @token, @options) ->
-    @incomingUrl = "https://#{team}.slack.com/services/hooks/incoming-webhook?token=#{token}"
+  constructor: (@incomingUrl, @options) ->
     @validateArguments()
-
+  
   validateArguments: ->
-    return throw new Error "Team name required" unless @team?
-    return throw new Error "Token required" unless @token?
+    return throw new Error "Incoming url required" unless @incomingUrl?
 
   notify: (message, callback)->
 
