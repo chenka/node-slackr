@@ -16,12 +16,12 @@ Initialize client:
 
 ```js
 Slack = require('node-slackr');
-slack = new Slack('team','token');
+slack = new Slack('https://<incoming-hook-url>');
 ```
 
 Initialize with options:
 ```js
-slack = new Slack('team','token',{
+slack = new Slack('https://<incoming-hook-url>',{
   channel: "#development",
   username: "slack-bot",
   icon_url: "http://domain.com/image.png",
