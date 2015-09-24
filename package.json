@@ -14,7 +14,7 @@
   "author": "Sarunyhot Suvannachoti <teamyakusa@gmail.com>",
   "license": "BSD",
   "dependencies": {
-    "request": "~2.34.0",
+    "request": "~2.63.0",
     "coffee-script": "~1.7.1",
     "lodash": "~2.4.1"
   },
