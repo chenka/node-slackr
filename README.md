@@ -72,7 +72,7 @@ To display a richly-formatted message attachment in Slack, you can use the same 
 ```js
 messages = {
   text: "Server Down",
-  channel: "#alert"
+  channel: "#alert",
   attachments: [
     {
       fallback: "Detected server down",
