@@ -25,7 +25,7 @@ slack = new Slack('https://<incoming-hook-url>',{
   channel: "#development",
   username: "slack-bot",
   icon_url: "http://domain.com/image.png",
-  icon_emoji: ":ghost:"  
+  icon_emoji: ":ghost:"
 });
 ```
 
@@ -51,7 +51,7 @@ messages = {
     username: "new-bot-name",
     icon_url: "https://slack.com/img/icons/app-57.png"
 }
-    
+
 slack.notify(messages);
 ```
 
@@ -61,7 +61,7 @@ messages = {
     text: "Message",
     channel: ["#channel1","#channel2","#channel3"]
 }
-    
+
 slack.notify(messages);
 ```
 
@@ -72,7 +72,7 @@ To display a richly-formatted message attachment in Slack, you can use the same 
 ```js
 messages = {
   text: "Server Down",
-  channel: "#alert"
+  channel: "#alert",
   attachments: [
     {
       fallback: "Detected server down",
@@ -81,12 +81,12 @@ messages = {
         {
           title: "Uptime",
           value: "30 Hours",
-          short: false 
+          short: false
         },
         {
           title: "Downtime",
           value: "20 Minutes",
-          short: false 
+          short: false
         }
       ]
     }
@@ -106,5 +106,3 @@ For more information such as send URL link, Message Formatting, @mention and Par
 [Formatting](https://api.slack.com/docs/formatting)
 
 [Incomg Webook](https://my.slack.com/services/new/incoming-webhook)
-
-
