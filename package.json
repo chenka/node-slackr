@@ -4,7 +4,7 @@
   "description": "A node.js module for send notifications to Slack, support multiple channel and attachments",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "./node_modules/.bin/_mocha",
     "prepublish": "./node_modules/.bin/coffee --compile --output lib src/*.coffee"
   },
   "repository": "https://github.com/chenka/node-slackr",
@@ -14,14 +14,14 @@
   "author": "Sarunyhot Suvannachoti <teamyakusa@gmail.com>",
   "license": "BSD",
   "dependencies": {
-    "request": "~2.63.0",
     "coffee-script": "~1.7.1",
-    "lodash": "~2.4.1"
+    "lodash": "^4.11.1",
+    "request": "^2.72.0"
   },
   "devDependencies": {
-    "mocha": "~1.18.2",
-    "nock": "^0.31.0",
-    "should": "~3.3.1",
-    "supertest": "^0.12.1"
+    "mocha": "^2.4.5",
+    "nock": "^8.0.0",
+    "should": "^8.3.1",
+    "supertest": "^1.2.0"
   }
 }
