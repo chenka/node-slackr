@@ -1,6 +1,6 @@
 {
   "name": "node-slackr",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A node.js module for send notifications to Slack, support multiple channel and attachments",
   "main": "index.js",
   "scripts": {
