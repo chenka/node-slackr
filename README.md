@@ -29,7 +29,7 @@ slack = new Slack('https://<incoming-hook-url>',{
 });
 ```
 
-###Send message:
+### Send message:
 
 If channel is not set default channel is *#general*
 ```js
@@ -40,7 +40,7 @@ slack.notify("Message", function(err, result){
 
 ```
 
-###Customized Appearance:
+### Customized Appearance:
 
 You can customize the name and icon of your Incoming Webhook.
 
@@ -66,7 +66,7 @@ slack.notify(messages);
 ```
 
 
-###Message Attachments:
+### Message Attachments:
 To display a richly-formatted message attachment in Slack, you can use the same JSON payload as above, but add in an attachments array. Each element of this array is a hash containing the following parameters:
 
 ```js
@@ -99,7 +99,7 @@ slack.notify(messages, function(err, result) {
 
 ```
 
-###Documentation
+### Documentation
 
 For more information such as send URL link, Message Formatting, @mention and Parsing modes,  please follow the link below
 
