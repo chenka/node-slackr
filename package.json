@@ -14,7 +14,7 @@
   "author": "Sarunyhot Suvannachoti <teamyakusa@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "coffeescript": "~1.12.7",
+    "coffeescript": "~1.8.0",
     "lodash": "^4.11.1",
     "request": "^2.72.0"
   },
