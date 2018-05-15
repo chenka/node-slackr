@@ -1,3 +1,2 @@
---compilers coffee:coffeescript/register
 --reporter spec
 --timeout 3000
