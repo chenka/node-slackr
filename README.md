@@ -1,7 +1,7 @@
 ![travis-ci](https://travis-ci.org/chenka/node-slackr.svg)
 
 # This module has been deprecated.
-## please move to [Slack offecial API](https://github.com/slackapi/node-slack-sdk)
+please move to [Slack offecial API](https://github.com/slackapi/node-slack-sdk)
 
 Summary
 =======
